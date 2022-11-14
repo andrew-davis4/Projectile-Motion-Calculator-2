@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projectile Motion Calculator v2 - Andrew Davis - Nov 09 2022</title>
+
+    <style>
+        body { background-color: #8acefc; }
+        .header-1{
+            color: #232265;
+            /* background-color: #8acefc; */
+            font-size: 2em;
+            font-weight: 600;
+            padding: 10px;
+            padding:0;
+            margin:0;
+            /* background: white; */
+            /* font-family: 'Oxygen', sans-serif; */
+            font-family: din-round,sans-serif;
+            text-align: center;
+        }
+        .header-2{
+            color: #232265;
+            font-size: 1.5em;
+            font-weight: 600;
+            padding: 10px;
+            padding:0;
+            margin:0;
+            /* background: white; */
+            /* font-family: 'Oxygen', sans-serif; */
+            font-family: din-round,sans-serif;
+            text-align: center;
+        }
+        hr.header-line{
+            border-color:#232265;
+            background-color:#232265;
+            width: 30%;
+        }
+        .count-1{
+            color: #232265;
+            font-size: 1.5em;
+            font-weight: 600;
+            padding: 10px;
+            /* padding:0; */
+            margin:0;
+            /* background: white; */
+            /* font-family: 'Oxygen', sans-serif; */
+            font-family: din-round,sans-serif;
+            text-align: center;
+        }
+        /* .visible{
+            visibility: visible;
+        } */
+        .invisible{
+            visibility: hidden;
+        }
+        .button-type-1 {
+            /* appearance: button; */
+            background-color: #1899D6;
+            border: solid transparent;
+            border-radius: 16px;
+            border-width: 0 0 4px;
+            box-sizing: border-box;
+            color: #232265;
+            cursor: pointer;
+            display: inline-block;
+            font-family: din-round,sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .8px;
+            line-height: 10px;
+            margin: 0;
+            outline: none;
+            overflow: visible;
+            padding: 13px 16px;
+            text-align: center;
+            text-transform: uppercase;
+            touch-action: manipulation;
+            transform: translateZ(0);
+            transition: filter .2s;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
+            white-space: nowrap;
+            width: 45px;
+            /* visibility: hidden; */
+        }
+        .button-type-1:hover{
+            transform: translateY(-2px);
+            cursor: pointer;
+        }
+        .button-type-1:after {
+            background-clip: padding-box;
+            background-color: #1CB0F6;
+            border: solid transparent;
+            border-radius: 16px;
+            border-width: 0 0 4px;
+            bottom: -4px;
+            content: "";
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: -1;
+            /* transform: translateY(2px); */
+        }
+        .button-type-1:hover:not(:disabled) {
+            filter: brightness(1.1);
+            -webkit-filter: brightness(1.1);
+        }
+        .button-type-2 {
+            /* appearance: button; */
+            background-color: #1899D6;
+            border: solid transparent;
+            border-radius: 16px;
+            border-width: 0 0 4px;
+            box-sizing: border-box;
+            color: #232265;
+            cursor: pointer;
+            display: inline-block;
+            font-family: din-round,sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .8px;
+            line-height: 10px;
+            margin: 0;
+            outline: none;
+            overflow: visible;
+            padding: 13px 16px;
+            text-align: center;
+            text-transform: uppercase;
+            touch-action: manipulation;
+            transform: translateZ(0);
+            transition: filter .2s;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
+            white-space: nowrap;
+            width: 68px;
+            /* visibility: hidden; */
+        }
+        .button-type-2:hover{
+            transform: translateY(-2px);
+            cursor: pointer;
+        }
+        .button-type-2:after {
+            background-clip: padding-box;
+            background-color: #1CB0F6;
+            border: solid transparent;
+            border-radius: 16px;
+            border-width: 0 0 4px;
+            bottom: -4px;
+            content: "";
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: -1;
+            /* transform: translateY(2px); */
+        }
+        .button-type-2:hover:not(:disabled) {
+            filter: brightness(1.1);
+            -webkit-filter: brightness(1.1);
+        }
+        .button-type-3 {
+            /* appearance: button; */
+            background-color: #1899D6;
+            border: solid transparent;
+            border-radius: 16px;
+            border-width: 0 0 4px;
+            box-sizing: border-box;
+            color: #232265;
+            cursor: pointer;
+            display: inline-block;
+            font-family: din-round,sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .8px;
+            line-height: 10px;
+            margin: 0;
+            outline: none;
+            overflow: visible;
+            padding: 13px 16px;
+            text-align: center;
+            text-transform: uppercase;
+            touch-action: manipulation;
+            transform: translateZ(0);
+            transition: filter .2s;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
+            white-space: nowrap;
+            width: 100px;
+            /* visibility: hidden; */
+        }
+        .button-type-3:hover{
+            transform: translateY(-2px);
+            cursor: pointer;
+        }
+        .button-type-3:after {
+            background-clip: padding-box;
+            background-color: #1CB0F6;
+            border: solid transparent;
+            border-radius: 16px;
+            border-width: 0 0 4px;
+            bottom: -4px;
+            content: "";
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: -1;
+            /* transform: translateY(2px); */
+        }
+        .button-type-3:hover:not(:disabled) {
+            filter: brightness(1.1);
+            -webkit-filter: brightness(1.1);
+        }
+        .button-type-4 {
+            /* appearance: button; */
+            background-color: #1899D6;
+            border: solid transparent;
+            border-radius: 16px;
+            border-width: 0 0 4px;
+            box-sizing: border-box;
+            color: #232265;
+            cursor: pointer;
+            display: inline-block;
+            font-family: din-round,sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .8px;
+            line-height: 10px;
+            margin: 0;
+            outline: none;
+            overflow: visible;
+            padding: 13px 16px;
+            text-align: center;
+            text-transform: uppercase;
+            touch-action: manipulation;
+            transform: translateZ(0);
+            transition: filter .2s;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
+            white-space: nowrap;
+            width: 140px;
+            /* visibility: hidden; */
+        }
+        .button-type-4:hover{
+            transform: translateY(-2px);
+            cursor: pointer;
+        }
+        .button-type-4:after {
+            background-clip: padding-box;
+            background-color: #1CB0F6;
+            border: solid transparent;
+            border-radius: 16px;
+            border-width: 0 0 4px;
+            bottom: -4px;
+            content: "";
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: -1;
+            /* transform: translateY(2px); */
+        }
+        .button-type-4:hover:not(:disabled) {
+            filter: brightness(1.1);
+            -webkit-filter: brightness(1.1);
+        }
+
+    </style>
+
+</head>
+<body>
+    <br><br>
+    <h1 id="title-header" class="header-1">Projectile Motion Calculator v2 - Andrew Davis - Nov 09 2022</h1>
+    <br><br><hr class="header-line"><br><br><br>
+
+    <div id="countingButtons">
+
+        <h1 id="velocity-header" class="header-2">
+            <button id="calculate-velocity" class="button-type-3 invisible" onclick="calculateButton(1)">Calculate</button>
+            Magnitude of Initial Velocity of Object:
+            <button id="unknown-velocity" class="button-type-3" onclick="unknownButton(1)">Unkown</button>
+        </h1>
+        
+        <h1 id="velocity-counter-header" class="count-1 invisible">
+            <button id="-10-velocity" class="button-type-1" onclick="countButton(-1, 10, 1)"><<</button>
+            <button id="-1-velocity" class="button-type-1" onclick="countButton(-1, 1, 1)"><</button>
+            <var id="velocity-counter">0</var> m/s
+            <button id="+1-velocity" class="button-type-1" onclick="countButton(1, 1, 1)">></button>
+            <button id="+10-velocity" class="button-type-1" onclick="countButton(1, 10, 1)">>></button>
+            <button id="reset-velocity" class="button-type-2" onclick="resetButton(1)">Reset</button>
+        </h1>
+
+        <br>
+        <h1 id="d-y-header" class="header-2">
+            <button id="calculate-d-y" class="button-type-3 invisible" onclick="calculateButton(2)">Calculate</button>
+            Y displacement gain(+)/loss(-):
+            <button id="unknown-d-y" class="button-type-3" onclick="unknownButton(2)">Unkown</button>
+        </h1>
+        
+        <h1 id="d-y-counter-header" class="count-1 invisible">
+            <button id="-10-d-y" class="button-type-1" onclick="countButton(-1, 10, 2)"><<</button>
+            <button id="-1-d-y" class="button-type-1" onclick="countButton(-1, 1, 2)"><</button>
+            <var id="d-y-counter">0</var> m
+            <button id="+1-d-y" class="button-type-1" onclick="countButton(1, 1, 2)">></button>
+            <button id="+10-d-y" class="button-type-1" onclick="countButton(1, 10, 2)">>></button>
+            <button id="reset-d-y" class="button-type-2" onclick="resetButton(2)">Reset</button>
+        </h1>
+
+        <br>
+        <h1 id="theta-header" class="header-2">
+            <button id="calculate-theta" class="button-type-3 invisible" onclick="calculateButton(3)">Calculate</button>
+            Angle of Launch:
+            <button id="unknown-theta" class="button-type-3" onclick="unknownButton(3)">Unkown</button>
+        </h1>
+        
+        <h1 id="theta-counter-header" class="count-1 invisible">
+            <button id="-10-theta" class="button-type-1" onclick="countButton(-1, 10, 3)"><<</button>
+            <button id="-1-theta" class="button-type-1" onclick="countButton(-1, 1, 3)"><</button>
+            <var id="theta-counter">0</var> degrees
+            <button id="+1-theta" class="button-type-1" onclick="countButton(1, 1, 3)">></button>
+            <button id="+10-theta" class="button-type-1" onclick="countButton(1, 10, 3)">>></button>
+            <button id="reset-theta" class="button-type-2" onclick="resetButton(3)">Reset</button>
+            
+        </h1>
+
+        <br>
+
+        <h1 id="d-x-header" class="header-2">
+            <button id="calculate-d-x" class="button-type-3 invisible" onclick="calculateButton(4)">Calculate</button>
+            X displacement gain(+)/loss(-):
+            <button id="unknown-d-x" class="button-type-3" onclick="unknownButton(4)">Unkown</button>
+        </h1>
+
+        <h1 id="d-x-counter-header" class="count-1 invisible">
+            <button id="-10-d-x" class="button-type-1" onclick="countButton(-1, 10, 4)"><<</button>
+            <button id="-1-d-x" class="button-type-1" onclick="countButton(-1, 1, 4)"><</button>
+            <var id="d-x-counter">0</var> m
+            <button id="+1-d-x" class="button-type-1" onclick="countButton(1, 1, 4)">></button>
+            <button id="+10-d-x" class="button-type-1" onclick="countButton(1, 10, 4)">>></button>
+            <button id="reset-d-x" class="button-type-2" onclick="resetButton(4)">Reset</button>
+
+        </h1>
+
+        <br>
+
+        <h1 id="new-unknown-header" class="count-1">
+            <button id="new-unkown" class="button-type-4" onclick="newUnknownButton()">New Unknown</button>
+        </h1>
+
+
+    </div>
+    
+
+    <script>
+        var velocity = 0;
+        var d_y = 0;
+        var theta = 0;
+
+
+        function unknownButton(unknown_variable){
+
+            document.getElementById("unknown-velocity").classList.add("invisible");
+            document.getElementById("unknown-d-y").classList.add("invisible");
+            document.getElementById("unknown-theta").classList.add("invisible");
+            document.getElementById("unknown-d-x").classList.add("invisible");
+
+            document.getElementById("velocity-counter-header").classList.remove("invisible");
+            document.getElementById("d-y-counter-header").classList.remove("invisible");
+            document.getElementById("theta-counter-header").classList.remove("invisible");
+            document.getElementById("d-x-counter-header").classList.remove("invisible");
+
+            if (unknown_variable==1){
+                document.getElementById("calculate-velocity").classList.remove("invisible");
+
+                document.getElementById("-10-velocity").classList.add("invisible");
+                document.getElementById("-1-velocity").classList.add("invisible");
+                document.getElementById("+1-velocity").classList.add("invisible");
+                document.getElementById("+10-velocity").classList.add("invisible");
+                document.getElementById("reset-velocity").classList.add("invisible");
+            }
+            else if (unknown_variable==2){
+                document.getElementById("calculate-d-y").classList.remove("invisible");
+
+                document.getElementById("-10-d-y").classList.add("invisible");
+                document.getElementById("-1-d-y").classList.add("invisible");
+                document.getElementById("+1-d-y").classList.add("invisible");
+                document.getElementById("+10-d-y").classList.add("invisible");
+                document.getElementById("reset-d-y").classList.add("invisible");
+            }
+            else if (unknown_variable==3){
+                document.getElementById("calculate-theta").classList.remove("invisible");
+
+                document.getElementById("-10-theta").classList.add("invisible");
+                document.getElementById("-1-theta").classList.add("invisible");
+                document.getElementById("+1-theta").classList.add("invisible");
+                document.getElementById("+10-theta").classList.add("invisible");
+                document.getElementById("reset-theta").classList.add("invisible");
+            }
+            else if (unknown_variable==4){
+                document.getElementById("calculate-d-x").classList.remove("invisible");
+
+                document.getElementById("-10-d-x").classList.add("invisible");
+                document.getElementById("-1-d-x").classList.add("invisible");
+                document.getElementById("+1-d-x").classList.add("invisible");
+                document.getElementById("+10-d-x").classList.add("invisible");
+                document.getElementById("reset-d-x").classList.add("invisible");
+            }
+
+
+        }
+        function newUnknownButton(){
+                
+        }
+
+
+        function countButton(direction, step_increase, variable_being_changed){
+            if (variable_being_changed==1){
+                velocity += direction*step_increase;
+                document.getElementById("velocity-counter").innerHTML = velocity;
+            }
+            else if (variable_being_changed==2){
+                d_y += direction*step_increase;
+                document.getElementById("d-y-counter").innerHTML = d_y;
+            }
+            else if (variable_being_changed==3){
+                theta += direction*step_increase;
+                document.getElementById("theta-counter").innerHTML = theta;
+            }
+
+        }
+
+        function resetButton(variable_being_changed){
+            if (variable_being_changed==1){
+                velocity = 0;
+                document.getElementById("velocity-counter").innerHTML = velocity;
+            }
+            else if (variable_being_changed==2){
+                d_y = 0
+                document.getElementById("d-y-counter").innerHTML = d_y;
+            }
+            else if (variable_being_changed==3){
+                theta = 0
+                document.getElementById("theta-counter").innerHTML = theta;
+            }
+        }
+
+        function calculateButton(variable_being_calculated){
+
+            // console.log(velocity);
+            // console.log(d_y);
+
+            d_x = solve_d_x(d_y, velocity, to_radians(theta));
+            document.getElementById("d-x-counter").innerHTML = Math.round(d_x*100)/100;
+
+        }
+
+        function to_radians(deg){
+            // console.log(deg);
+            // console.log(deg*Math.PI)/180;
+            // console.log(Math.PI);
+            return (deg*Math.PI)/180;
+        }   
+        function solve_d_x(d_y, v, theta){
+            v_x = v*Math.cos(theta);
+            v_y = v*Math.sin(theta);
+            discriminant = (v_y**2)-(4*-4.905*-d_y);
+           
+            t_1 = (-v_y-Math.sqrt(discriminant))/-9.81;
+        
+            return t_1*v_x;
+
+        }
+        function solve_d_y(d_x, v, theta){
+            v_x = v*Math.cos(theta);
+            v_y = v*Math.sin(theta);
+        
+            d_y = ((((-9.81*d_x)/v_x)+v_y)**2-(v_y**2))/-19.62;
+        
+            return d_y;
+
+        } 
+        function solve_velocity(d_y, d_x, theta){
+
+        }
+        function solve_theta(d_y, d_x, v){
+
+        }
+
+
+    </script>
+
+    
+</body>
+</html>
